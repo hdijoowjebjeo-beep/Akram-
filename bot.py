@@ -1,0 +1,16 @@
+import os
+from telegram import Update
+from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
+
+TOKEN = os.getenv("BOT_TOKEN")
+
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("أهلاً بك يا أكرم! البوت الخاص بك يعمل بنجاح على Railway.")
+
+if __name__ == '__main__':
+    if not TOKEN:
+        print("خطأ: لم يتم العثور على BOT_TOKEN")
+    else:
+        app = ApplicationBuilder().token(TOKEN).build()
+        app.add_handler(CommandHandler('start', start))
+        app.run_polling()
